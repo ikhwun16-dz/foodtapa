@@ -150,13 +150,13 @@
 
 <section class="sec wrap" aria-labelledby="color">
   <div class="split split--rev">
-    <figure class="swatch-photo" data-swatch-stage><img data-swatch-img src="{{ SITE.colors[0].image or SITE.media.color_photo }}" alt="푸드타파 하이브리드 음식물처리기" loading="lazy" referrerpolicy="no-referrer"><figcaption data-swatch-name>{{ SITE.colors[0].name }}</figcaption></figure>
+    <figure class="swatch-photo" data-swatch-stage><img data-swatch-img src="{{ rel(SITE.colors[0].image) if SITE.colors[0].image else SITE.media.color_photo }}" alt="푸드타파 하이브리드 음식물처리기 {{ SITE.colors[0].name }}" loading="lazy" referrerpolicy="no-referrer"><figcaption data-swatch-name>{{ SITE.colors[0].name }}</figcaption></figure>
     <div>
       <span class="kicker">컬러</span>
       <h2 id="color" class="h2">주방 분위기에 맞춰 고르는 4가지 컬러</h2>
       <p class="lead">본체 커버 4종에 거름망 컬러까지 조합할 수 있어요. 싱크대 안에서도 내 취향대로.</p>
       <div class="swatches" role="radiogroup" aria-label="본체 컬러">
-        {% for c in SITE.colors %}<button type="button" role="radio" aria-checked="{{ 'true' if loop.first else 'false' }}" data-swatch="{{ c.hex }}" data-name="{{ c.name }}" data-img="{{ c.image or '' }}" style="--c:{{ c.hex }}"><i></i>{{ c.name }}</button>{% endfor %}
+        {% for c in SITE.colors %}<button type="button" role="radio" aria-checked="{{ 'true' if loop.first else 'false' }}" data-swatch="{{ c.hex }}" data-name="{{ c.name }}" data-img="{{ rel(c.image) if c.image else '' }}" style="--c:{{ c.hex }}"><i></i>{{ c.name }}</button>{% endfor %}
       </div>
       <p class="note">거름망 컬러: {{ SITE.filter_colors|join(' · ') }}</p>
     </div>
