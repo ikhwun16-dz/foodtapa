@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block main %}
+<section class="phero">
+  <div class="wrap">
+    {{ m.crumbs([('홈',''),('구매 방법','buy/')], rel) }}
+    <span class="eyebrow">구매 · 렌탈 · 15일 무료체험</span>
+    <h1 class="h1">어떻게 시작할지<br>30초 만에 정해 드려요</h1>
+    <p class="lead">세 가지 모두 같은 제품, 같은 기사 방문 설치예요. 결제 방식과 시작 부담만 다릅니다.</p>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="quiz" data-quiz>
+    <p class="quiz__q">어떤 상황에 더 가까우세요?</p>
+    <div class="quiz__opts">
+      <button type="button" data-pick="trial">써보고 결정하고 싶어요</button>
+      <button type="button" data-pick="buy">이미 마음먹었어요, 할부로 사고 싶어요</button>
+      <button type="button" data-pick="rental">목돈 없이 월 납부가 좋아요</button>
+    </div>
+  </div>
+  <div class="plans plans--wide" data-car="plans">
+  {% for pr in SITE.products %}
+    <article class="plan plan--{{ pr.id }}" id="plan-{{ pr.id }}">
+      <span class="plan__badge">{{ pr.badge }}</span>
+      <div class="plan__img"><img src="{{ pr.image }}" alt="{{ pr.name }}" width="400" height="400" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='{{ rel('assets/img/product.svg') }}'"></div>
+      <span class="kicker">{{ pr.label }}</span>
+      <h2 class="plan__h">{{ pr.short }}</h2>
+      <p class="plan__price">{% if pr.price >= 1000 %}<del>{{ won(pr.list_price) }}</del>{% endif %}<b>{{ pr.price_text }}</b></p>
+      <ul>{% for pt in pr.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+      <a class="btn {{ 'btn--accent' if loop.first else 'btn--dark' }} btn--block" href="{{ link(pr.url_key) }}" target="_blank" rel="noopener" data-track="buy-{{ pr.id }}">{{ pr.cta }} →</a>
+    </article>
+  {% endfor %}
+  </div>
+</section>
+
+<section class="sec sec--tint">
+  <div class="wrap">
+    <h2 class="h2">한눈에 비교</h2>
+    <div class="table-wrap">
+      <table class="cmp cmp--light">
+        <thead><tr><th scope="col">항목</th><th scope="col">15일 무료체험</th><th scope="col">공식몰 구매</th><th scope="col">36개월 렌탈</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">시작 비용</th><td>신청 100원</td><td>1,540,000원 (정가 1,680,000원)</td><td>초기 목돈 없음</td></tr>
+          <tr><th scope="row">결제</th><td>체험 후 구매 결정</td><td>최대 24개월 무이자 할부</td><td>월 렌탈료 (상담 후 안내)</td></tr>
+          <tr><th scope="row">무상 A/S</th><td>구매 시 3년</td><td>3년 (제품 하자)</td><td>3년 (제품 하자)</td></tr>
+          <tr><th scope="row">설치</th><td>기사 방문 설치</td><td>기사 방문 설치</td><td>기사 방문 설치</td></tr>
+          <tr><th scope="row">이런 분께</th><td>소음·사용감을 직접 확인하고 싶은 분</td><td>바로 쓰고 싶은 분</td><td>월 고정비로 나누고 싶은 분</td></tr>
+          <tr><th scope="row">참고</th><td>불만족 시 왕복 택배비(96,000원)·철거비만 부담, 선결제액 환불</td><td>월별 프로모션 사은품 적용</td><td>36개월 약정</td></tr>
+          <tr><th scope="row">신청</th><td><a href="{{ link('trial') }}" target="_blank" rel="noopener">체험 신청 →</a></td><td><a href="{{ link('buy') }}" target="_blank" rel="noopener">구매하기 →</a></td><td><a href="{{ link('rental') }}" target="_blank" rel="noopener">렌탈 상담 →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">가격·혜택은 공식몰 기준이며 월별 프로모션(설치비 무료, 보충용 미생물 증정 등)에 따라 달라질 수 있어요. 결제 수단에 따라 무이자 개월 수가 달라요.</p>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="split">
+    <div class="icard icard--big">
+      <span class="kicker">사업장이라면</span>
+      <b>{{ SITE.business_product.name }}</b>
+      <p>{{ SITE.business_product.short }}</p>
+      <a class="btn btn--dark" href="{{ link('business') }}" target="_blank" rel="noopener" data-track="buy-business">업소용 보기 →</a>
+    </div>
+    <div class="icard icard--big icard--y">
+      <span class="kicker">신청 전에</span>
+      <b>설치 가능 여부부터 확인하세요</b>
+      <p>싱크대 하부장 사진을 카카오톡으로 보내주시면 설치 가능 여부와 이번 달 혜택을 함께 안내해 드려요.</p>
+      <a class="btn btn--accent" href="{{ SITE.brand.kakao }}" target="_blank" rel="noopener" data-track="buy-kakao">카카오톡 상담 →</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block main %}
+<section class="phero">
+  <div class="wrap">
+    {{ m.crumbs([('홈',''),('제품 정보','product/')], rel) }}
+    <div class="split">
+      <div>
+        <span class="eyebrow">FOODTAPA HYBRID</span>
+        <h1 class="h1">푸드타파 하이브리드<br>음식물처리기</h1>
+        <p class="lead">분쇄 + 미생물 분해 + 국내 유일 상향배출. 넣으면 바로 정리되고, 배관에는 액체만 흘러갑니다.</p>
+        <div class="tldr">
+          <b>한눈에 보기</b>
+          <ul>
+            <li>방식: 해머 분쇄 + 메밀껍질 담체 미생물 분해(하이브리드)</li>
+            <li>배출: 상향배출, 맑은 액체만 배출</li>
+            <li>관리: 1년에 한 번 미생물 보충, 월 전기료 1,000원대</li>
+            <li>보증: 구매 시 전국 3년 무상 A/S, 제품 원인 막힘 시 100% 환불</li>
+          </ul>
+        </div>
+        <div class="hero__btns">
+          <a class="btn btn--accent btn--lg" href="{{ link('trial') }}" target="_blank" rel="noopener" data-track="prod-trial">15일 무료체험</a>
+          <a class="btn btn--dark btn--lg" href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="prod-buy">공식몰 구매</a>
+          <a class="btn btn--ghost btn--lg" href="{{ link('rental') }}" target="_blank" rel="noopener" data-track="prod-rental">렌탈 상담</a>
+        </div>
+      </div>
+      <div class="gallery" data-car="gal">
+        <figure><img src="{{ SITE.media.hero_product }}" alt="푸드타파 하이브리드 음식물처리기" width="1000" height="1000" referrerpolicy="no-referrer"></figure>{% for pr in SITE.products %}<figure><img src="{{ pr.image }}" alt="{{ pr.name }}" width="600" height="600" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='{{ rel('assets/img/product.svg') }}'" {% if not loop.first %}loading="lazy"{% endif %}></figure>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="split">
+    <div>
+      <span class="kicker">핵심 기술 1</span>
+      <h2 class="h2">상향배출: 찌꺼기는 남기고 액체만 위로</h2>
+      <p class="lead">일반 분쇄형은 간 음식물을 아래로 흘려보내요. 그래서 기름과 섞인 찌꺼기가 배관에 쌓이면 막힘이나 역류로 이어질 수 있어요. 푸드타파는 분해된 액체가 <b>위쪽 배출구를 넘어갈 때만</b> 배출되는 구조라, 무거운 찌꺼기가 배관으로 넘어가지 않습니다.</p>
+      <a class="link-more" href="{{ rel('guide/category/tech/') }}">구조·원리 정보글 →</a>
+    </div>
+    <figure class="split__vis split__vis--img"><img src="{{ SITE.media.upflow }}" alt="국내 유일 상향배출 시스템과 하향배출 비교" loading="lazy" referrerpolicy="no-referrer"></figure>
+  </div>
+</section>
+
+<section class="sec sec--tint">
+  <div class="wrap">
+    <div class="cards3">
+      <div class="icard"><span class="kicker">핵심 기술 2</span><b>메밀껍질 담체 미생물</b><p>경북대학교와 4년간 산학 연구로 개발한 친환경 미생물이에요. 1년에 한 번 보충하면 됩니다.</p></div>
+      <div class="icard"><span class="kicker">핵심 기술 3</span><b>SUS630 해머 분쇄</b><p>칼날이 아닌 해머 방식이에요. 단단한 SUS630 스테인리스라 오래 써도 마모가 거의 없어요.</p></div>
+      <div class="icard"><span class="kicker">사용 방식</span><b>뚜껑 방식 · 물 필요 없음</b><p>뚜껑을 열고 넣으면 끝이에요. 사용할 때 물을 틀어 둘 필요가 없어요. 1회 투입량 제한이 있어요.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <span class="kicker">제품 정보</span>
+  <h2 class="h2">사양 및 정책</h2>
+  <div class="table-wrap">
+    <table class="spec">
+      <tbody>
+        <tr><th scope="row">제품명 / 모델명</th><td>푸드타파 하이브리드 음식물처리기 / DCS-HM4AG</td></tr>
+        <tr><th scope="row">크기</th><td>본체 W360 × D320 × H390mm · 분쇄기(디스포저) W160 × H320mm</td></tr>
+        <tr><th scope="row">무게 / 재질</th><td>10kg / ABS, 철재</td></tr>
+        <tr><th scope="row">처리 방식</th><td>분쇄 + 3단계 미생물 분해, 상향배출</td></tr>
+        <tr><th scope="row">처리 시간</th><td>1회 분쇄 30초, 분해 약 8~24시간</td></tr>
+        <tr><th scope="row">처리 용량</th><td>1일 최대 2kg (1일 권장량 1kg)</td></tr>
+        <tr><th scope="row">관리 주기</th><td>연 1회 미생물 투입 · 거름망 별도 구입 가능</td></tr>
+        <tr><th scope="row">전원 / 소비전력</th><td>220V / 60Hz, 375W · 소비전력 25.1W/h (월 전기료 1,000원대)</td></tr>
+        <tr><th scope="row">본체 컬러</th><td>{% for c in SITE.colors %}<span class="dot" style="--c:{{ c.hex }}"></span>{{ c.name }}{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>
+        <tr><th scope="row">거름망 컬러</th><td>{{ SITE.filter_colors|join(' · ') }}</td></tr>
+        <tr><th scope="row">인증</th><td>분쇄기 인증 제2024-34호(한국물기술인증원) · KC 안전인증 YC07018-23001, YH07284-21001 · KC 전파인증 DREKCC2211-1376</td></tr>
+        <tr><th scope="row">제조</th><td>대한민국 / {{ SITE.brand.manufacturer }}(J&amp;H Company)</td></tr>
+        <tr><th scope="row">A/S</th><td>구매 시 전국(제주 포함) 3년 무상 A/S, 제품 하자 기준 · A/S센터 1522-0930</td></tr>
+        <tr><th scope="row">막힘 보증</th><td>제품이 원인인 하수구 막힘 시 100% 환불 (일반쓰레기 투입으로 인한 막힘 제외)</td></tr>
+        <tr><th scope="row">배송·설치</th><td>입금 확인 후 평균 3일 배송, 주문 후 평균 5~7일 내 기사 방문 설치 (제주·도서산간 현장 추가 3만원)</td></tr>
+        <tr><th scope="row">이전설치</th><td>약 165,000원 (철거 + 재설치, 상담 시 확인)</td></tr>
+        <tr><th scope="row">반품</th><td>설치 제품 특성상 설치 후 단순 변심 반품 불가 · 설치 전 취소 시 왕복 택배비 2만원</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec sec--tint">
+  <div class="wrap split">
+    <div>
+      <span class="kicker">관리법</span>
+      <h2 class="h2">따로 청소할 게 거의 없어요</h2>
+      <ol class="steps">
+        <li><b>평소</b><span>싱크대 물때 정도만 닦아 주세요.</span></li>
+        <li><b>정기 세척</b><span>거름망을 열고 구연산 2스푼 + 식초 2스푼 + 물 2L를 붓고, 얼음 2~3조각과 함께 작동하세요.</span></li>
+        <li><b>분쇄부</b><span>분쇄부와 바이패스 구멍은 빨대솔로 문질러 주세요.</span></li>
+        <li><b>1년에 한 번</b><span>미생물을 보충하면 끝이에요.</span></li>
+      </ol>
+      <a class="btn btn--dark" href="{{ SITE.brand.youtube_guide }}" target="_blank" rel="noopener">4분 사용법 영상 보기 →</a>
+    </div>
+    <div class="nogo">
+      <h3>넣으면 안 되는 것</h3>
+      <p>지자체 기준으로 일반쓰레기로 분류되는 것은 넣지 마세요.</p>
+      <ul class="chips">
+        {% for x in ['닭뼈·돼지뼈','조개·굴 껍데기','달걀 껍데기','견과류 껍데기','옥수수 심지','파인애플 심지·껍질','복숭아·망고 씨','양파·마늘 껍질','티백·한약재','기름 대량'] %}<li>{{ x }}</li>{% endfor %}
+      </ul>
+      <a class="link-more" href="{{ rel('guide/category/care/') }}">사용·관리 정보글 →</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec sec--tint" id="detail" aria-labelledby="dtl">
+  <div class="wrap">
+    <div class="center"><span class="kicker">DETAIL</span><h2 id="dtl" class="h2">푸드타파 상세 정보</h2><p class="lead" style="margin:0 auto">공식몰 상세페이지의 핵심 내용을 그대로 모았어요.</p></div>
+    <div class="dstack">
+      {% for d in SITE.media.detail %}<img src="{{ d.src }}" alt="{{ d.alt }}" loading="lazy" decoding="async" referrerpolicy="no-referrer">{% endfor %}
+    </div>
+    <div class="center"><a class="btn btn--accent btn--lg" href="{{ link('trial') }}" target="_blank" rel="noopener" data-track="detail-trial">15일 무료체험 신청</a> <a class="btn btn--dark btn--lg" href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="detail-buy">공식몰 구매</a></div>
+  </div>
+</section>
+
+{% if posts %}
+<section class="sec wrap">
+  <div class="sec__head"><div><span class="kicker">더 알아보기</span><h2 class="h2">함께 읽으면 좋은 글</h2></div>{{ m.carousel_ctrl('posts') }}</div>
+  <div class="rail" data-car="posts">{% for p in posts %}{{ m.card(p, rel) }}{% endfor %}</div>
+</section>
+{% endif %}
+{% include "_band.html" %}
+{% endblock %}

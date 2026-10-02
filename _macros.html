@@ -1,0 +1,59 @@
+{% macro card(p, rel, lazy=True) -%}
+<article class="pcard">
+  <a class="pcard__img" href="{{ rel(p.url) }}" tabindex="-1" aria-hidden="true"><img src="{{ rel(p.cover) }}" alt="" width="1200" height="630" {% if lazy %}loading="lazy"{% endif %} decoding="async"></a>
+  <div class="pcard__body">
+    <a class="chip chip--soft" href="{{ rel('guide/category/' ~ p.category ~ '/') }}">{{ p.cat_name }}</a>
+    <h3><a href="{{ rel(p.url) }}">{{ p.title }}</a></h3>
+    <p>{{ p.description }}</p>
+    <div class="pcard__meta"><time datetime="{{ p._date.date().isoformat() }}">{{ p._date.strftime('%Y.%m.%d') }}</time><span>{{ p.read_min }}분 읽기</span></div>
+  </div>
+</article>
+{%- endmacro %}
+
+{% macro faq_list(items, open_first=False) -%}
+<div class="faq">
+{% for q in items %}
+  <details class="faq__item" {% if open_first and loop.first %}open{% endif %}>
+    <summary><span class="faq__q">Q</span>{{ q.q }}<i aria-hidden="true"></i></summary>
+    <div class="faq__a">{{ q.a|safe }}</div>
+  </details>
+{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro carousel_ctrl(id) -%}
+<div class="car-ctrl"><button type="button" class="car-btn" data-car-prev="{{ id }}" aria-label="이전">←</button><button type="button" class="car-btn" data-car-next="{{ id }}" aria-label="다음">→</button></div>
+{%- endmacro %}
+
+{% macro crumbs(items, rel) -%}
+<nav class="crumbs" aria-label="현재 위치"><ol>{% for name, url in items %}<li>{% if not loop.last %}<a href="{{ rel(url) }}">{{ name }}</a>{% else %}<span aria-current="page">{{ name }}</span>{% endif %}</li>{% endfor %}</ol></nav>
+{%- endmacro %}
+
+{% macro flow_svg() -%}
+<svg class="flow" viewBox="0 0 520 540" role="img" aria-label="푸드타파 상향배출 작동 원리: 투입, 해머 분쇄, 미생물 분해, 위쪽으로 액체만 배출">
+  <title>푸드타파 상향배출 작동 원리</title>
+  <desc>싱크대 투입구로 들어간 음식물이 해머 분쇄부에서 잘게 부서지고, 미생물 분해조에서 분해된 뒤 위쪽 배출구로 액체만 넘어가 배수관으로 흐르는 구조</desc>
+  <defs><linearGradient id="gLiq" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#C9A44C"/><stop offset="1" stop-color="#F2DE9B"/></linearGradient></defs>
+  <text x="40" y="34" class="f-lbl">① 싱크대 투입</text>
+  <rect x="30" y="48" width="330" height="30" rx="10" class="f-sink"/>
+  <rect x="160" y="78" width="70" height="34" class="f-body"/>
+  <rect x="120" y="112" width="150" height="88" rx="22" class="f-body"/>
+  <g class="f-hammer"><circle cx="195" cy="156" r="24"/><rect x="191" y="124" width="8" height="64" rx="4"/><rect x="163" y="152" width="64" height="8" rx="4"/></g>
+  <text x="284" y="150" class="f-lbl">② 해머 분쇄</text>
+  <text x="284" y="174" class="f-lbl f-lbl--sm">SUS630 · 마모 거의 없음</text>
+  <rect x="180" y="200" width="30" height="24" class="f-body"/>
+  <rect x="60" y="224" width="270" height="240" rx="36" class="f-tank"/>
+  <rect x="78" y="296" width="234" height="150" rx="24" fill="url(#gLiq)" opacity=".92"/>
+  <g class="f-sed"><rect x="96" y="412" width="198" height="20" rx="10"/></g>
+  <g class="f-dots">{% for x,y in [(110,330),(150,372),(205,346),(250,388),(130,400),(232,402),(180,318),(276,338)] %}<circle cx="{{x}}" cy="{{y}}" r="6"/>{% endfor %}</g>
+  <g class="f-up"><path d="M118 382 v-46 m-10 12 l10 -12 l10 12"/><path d="M272 382 v-46 m-10 12 l10 -12 l10 12"/></g>
+  <text x="195" y="270" text-anchor="middle" class="f-lbl">③ 미생물 분해</text>
+  <text x="195" y="292" text-anchor="middle" class="f-lbl f-lbl--sm">메밀껍질 담체 미생물</text>
+  <path d="M312 300 H420 V510" class="f-pipe"/>
+  <path d="M312 300 H420 V510" class="f-flow"/>
+  <text x="338" y="252" class="f-lbl f-lbl--accent">④ 위쪽으로</text>
+  <text x="338" y="276" class="f-lbl f-lbl--accent">액체만 배출</text>
+  <text x="432" y="508" class="f-lbl f-lbl--sm">배수관</text>
+  <text x="195" y="490" text-anchor="middle" class="f-lbl f-lbl--sm">무거운 찌꺼기는 아래에 남아 계속 분해</text>
+</svg>
+{%- endmacro %}
