@@ -201,30 +201,62 @@ def pick_claude_model(key):
     return "claude-sonnet-4-5"
 
 
+def _extract_json(text):
+    """모델이 텍스트로 답한 경우 JSON 부분만 꺼내기."""
+    m = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.S)
+    raw = m.group(1) if m else text[text.find("{"): text.rfind("}") + 1]
+    return json.loads(raw)
+
+
 def call_claude(prompt, schema=SCHEMA, temperature=0.7):
     key = os.environ["ANTHROPIC_API_KEY"]
     model = pick_claude_model(key)
+    js = to_json_schema(schema)
     body = {
         "model": model, "max_tokens": 16000, "temperature": temperature,
-        "system": "당신은 한국어 생활가전 전문 에디터입니다. 반드시 publish 도구를 호출해 결과를 제출하세요.",
+        "system": "당신은 한국어 생활가전 전문 에디터입니다. 결과는 반드시 publish 도구를 호출해 제출하세요.",
         "messages": [{"role": "user", "content": prompt}],
-        "tools": [{"name": "publish", "description": "완성된 결과를 제출", "input_schema": to_json_schema(schema)}],
+        "tools": [{"name": "publish", "description": "완성된 결과를 제출", "input_schema": js}],
         "tool_choice": {"type": "tool", "name": "publish"},
     }
+    print(f"Claude 모델: {model}")
     last = None
-    for attempt in range(4):
+    for attempt in range(6):
         r = requests.post("https://api.anthropic.com/v1/messages", json=body, timeout=300,
                           headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
         if r.status_code in (429, 500, 502, 503, 529):
             last = f"{r.status_code}"
             time.sleep(30 * (attempt + 1))
             continue
+        if r.status_code == 400:
+            msg = r.text
+            # 모델마다 지원 옵션이 달라서, 거절된 옵션을 빼고 다시 시도
+            if "tool_choice" in msg and body.get("tool_choice", {}).get("type") != "auto":
+                body["tool_choice"] = {"type": "auto"}
+                print("  tool_choice 미지원 → auto 로 재시도")
+                continue
+            if "temperature" in msg and "temperature" in body:
+                body.pop("temperature")
+                print("  temperature 미지원 → 제거 후 재시도")
+                continue
+            if "tools" in body and ("tool" in msg or "input_schema" in msg):
+                body.pop("tools"); body.pop("tool_choice", None)
+                body["system"] = "당신은 한국어 생활가전 전문 에디터입니다. 다른 말 없이 JSON 객체 하나만 출력하세요."
+                body["messages"][0]["content"] = prompt + "\n\n[출력 형식 JSON 스키마]\n" + json.dumps(js, ensure_ascii=False)
+                print("  도구 미지원 → JSON 텍스트 모드로 재시도")
+                continue
         if not r.ok:
             raise RuntimeError(f"Claude 호출 실패 {r.status_code}: {r.text[:300]}")
-        for block in r.json().get("content", []):
+        content = r.json().get("content", [])
+        for block in content:
             if block.get("type") == "tool_use":
                 return block["input"], model
-        last = "도구 응답 없음"
+        text = "".join(b.get("text", "") for b in content if b.get("type") == "text")
+        try:
+            return _extract_json(text), model
+        except (ValueError, json.JSONDecodeError):
+            last = "도구 응답 없음 / JSON 파싱 실패"
+            body["messages"][0]["content"] = prompt + "\n\n반드시 publish 도구를 호출해서 결과를 제출하세요."
     raise RuntimeError(f"Claude 호출 실패 → {last}")
 
 
@@ -406,4 +438,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(f"::error title=정보글 작성 실패::{str(e)[:400]}")
+        raise
