@@ -1,0 +1,87 @@
+name: 매일 정보글 발행 + 배포
+
+on:
+  schedule:
+    - cron: "7 0 * * *"      # 매일 09:07 (한국시간)
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "직접 지정할 주제 (비우면 자동)"
+        required: false
+  push:
+    branches: [main]
+    paths-ignore: ["README*.md"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 패키지 · 한글 폰트 설치
+        run: |
+          pip install -r requirements.txt
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk
+
+      - name: 사이트 주소 결정
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: 오늘의 정보글 작성 (Claude / Gemini)
+        id: gen
+        if: github.event_name != 'push'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          TOPICS_CSV_URL: ${{ vars.TOPICS_CSV_URL }}
+        run: |
+          if [ -n "${{ github.event.inputs.topic }}" ]; then
+            python scripts/generate_post.py --topic "${{ github.event.inputs.topic }}" --force
+          else
+            python scripts/generate_post.py
+          fi
+
+      - name: 사이트 빌드
+        env:
+          SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
+        run: python build.py
+
+      - name: 새 글 · 썸네일 저장(커밋)
+        run: |
+          git config user.name "foodtapa-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add content static/assets/covers static/assets/img
+          git diff --cached --quiet || (git commit -m "정보글 자동 발행 $(TZ=Asia/Seoul date +%F)" && git push)
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: 배포
+        id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: 네이버·빙에 새 글 알림 (IndexNow)
+        continue-on-error: true
+        env:
+          SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
+        run: python scripts/indexnow.py "${{ steps.gen.outputs.slug }}"
