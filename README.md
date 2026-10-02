@@ -1,6 +1,6 @@
 # 푸드타파 외부 노출용 홈페이지
 
-매일 아침 9시에 AI(Gemini)가 음식물처리기 정보글 1편을 써서 자동으로 발행하는 정적 사이트입니다.
+매일 아침 9시에 AI(Claude 권장 / Gemini 무료 대안)가 음식물처리기 정보글 1편을 써서 자동으로 발행하는 정적 사이트입니다.
 구매·렌탈·무료체험 버튼은 모두 유통나라 공식몰로 연결됩니다.
 
 ## 들어있는 것
@@ -28,10 +28,15 @@
 ### 2. 배포 켜기
 - 저장소 **Settings → Pages → Source: GitHub Actions** 선택
 
-### 3. Gemini API 키 등록 (무료)
-1. https://aistudio.google.com/apikey 에서 **Create API key** → 키 복사
+### 3. AI 키 등록 (둘 중 하나)
+**Claude (권장 · 글 품질 높음 · 월 3~5천원 수준 충전식)**
+1. https://console.anthropic.com 가입 → Billing에서 크레딧 $5 충전 → API Keys → Create Key → 복사
 2. 저장소 **Settings → Secrets and variables → Actions → New repository secret**
-   - Name: `GEMINI_API_KEY` / Secret: 복사한 키
+   - Name: `ANTHROPIC_API_KEY` / Secret: 복사한 키
+
+**Gemini (무료 대안)**
+- https://aistudio.google.com/apikey → 키 복사 → Name: `GEMINI_API_KEY` 로 등록
+- 두 키가 다 있으면 Claude를 사용합니다
 
 ### 4. 첫 실행
 - 저장소 **Actions 탭 → "매일 정보글 발행 + 배포" → Run workflow**

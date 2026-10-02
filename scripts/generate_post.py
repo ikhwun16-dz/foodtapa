@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""매일 1편 푸드타파 정보글을 Gemini API로 자동 작성합니다.
+"""매일 1편 푸드타파 정보글을 AI로 자동 작성합니다.
 
-필요한 환경변수
-  GEMINI_API_KEY   : Google AI Studio에서 발급한 API 키 (필수)
+필요한 환경변수 (둘 중 하나)
+  ANTHROPIC_API_KEY: Claude API 키 (권장, 글 품질 높음) — console.anthropic.com
+  CLAUDE_MODEL     : (선택) Claude 모델 고정. 비우면 최신 Sonnet 자동 선택
+  GEMINI_API_KEY   : Google AI Studio API 키 (무료 대안)
   GEMINI_MODEL     : 사용할 모델 (선택, 비우면 내 키로 쓸 수 있는 최신 Flash 모델 자동 선택)
 
 사용법
@@ -169,6 +171,72 @@ def call_gemini(prompt, schema=SCHEMA, temperature=0.75):
     raise RuntimeError(f"Gemini 호출 실패 → {last}")
 
 
+# ------------------------------------------------------------------ Claude (권장: 글 품질 우선)
+def to_json_schema(sc):
+    """Gemini 형식 스키마(대문자 type)를 표준 JSON Schema로 변환."""
+    out = {}
+    for k, v in sc.items():
+        if k == "type":
+            out[k] = v.lower()
+        elif isinstance(v, dict):
+            out[k] = {kk: to_json_schema(vv) for kk, vv in v.items()} if k == "properties" else to_json_schema(v)
+        else:
+            out[k] = v
+    return out
+
+
+def pick_claude_model(key):
+    if os.environ.get("CLAUDE_MODEL"):
+        return os.environ["CLAUDE_MODEL"]
+    try:
+        r = requests.get("https://api.anthropic.com/v1/models", params={"limit": 100},
+                         headers={"x-api-key": key, "anthropic-version": "2023-06-01"}, timeout=30)
+        ids = [m["id"] for m in r.json().get("data", [])]  # 최신순으로 정렬돼 옴
+        for family in ("sonnet", "opus", "haiku"):
+            for i in ids:
+                if family in i:
+                    return i
+    except Exception as e:
+        print("모델 목록 조회 실패:", e)
+    return "claude-sonnet-4-5"
+
+
+def call_claude(prompt, schema=SCHEMA, temperature=0.7):
+    key = os.environ["ANTHROPIC_API_KEY"]
+    model = pick_claude_model(key)
+    body = {
+        "model": model, "max_tokens": 16000, "temperature": temperature,
+        "system": "당신은 한국어 생활가전 전문 에디터입니다. 반드시 publish 도구를 호출해 결과를 제출하세요.",
+        "messages": [{"role": "user", "content": prompt}],
+        "tools": [{"name": "publish", "description": "완성된 결과를 제출", "input_schema": to_json_schema(schema)}],
+        "tool_choice": {"type": "tool", "name": "publish"},
+    }
+    last = None
+    for attempt in range(4):
+        r = requests.post("https://api.anthropic.com/v1/messages", json=body, timeout=300,
+                          headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+        if r.status_code in (429, 500, 502, 503, 529):
+            last = f"{r.status_code}"
+            time.sleep(30 * (attempt + 1))
+            continue
+        if not r.ok:
+            raise RuntimeError(f"Claude 호출 실패 {r.status_code}: {r.text[:300]}")
+        for block in r.json().get("content", []):
+            if block.get("type") == "tool_use":
+                return block["input"], model
+        last = "도구 응답 없음"
+    raise RuntimeError(f"Claude 호출 실패 → {last}")
+
+
+def call_llm(prompt, schema=SCHEMA, temperature=0.7):
+    """ANTHROPIC_API_KEY 가 있으면 Claude, 없으면 Gemini 로 작성."""
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return call_claude(prompt, schema, temperature)
+    if os.environ.get("GEMINI_API_KEY"):
+        return call_gemini(prompt, schema, temperature)
+    sys.exit("ANTHROPIC_API_KEY(권장) 또는 GEMINI_API_KEY 가 필요합니다. GitHub 저장소 Settings → Secrets 에 등록하세요.")
+
+
 def build_prompt(topic, posts, feedback=""):
     links = "\n".join(f"- ../{p['slug']}/ : {p['title']}" for p in sorted(posts, key=lambda p: p["date"], reverse=True)[:40])
     sample_q = "\n".join(f"- ({q['type']}) {q['q']}" for q in random.sample(QBANK, min(25, len(QBANK))))
@@ -301,7 +369,7 @@ def main():
         topic = pick_topic(posts)
         if topic is None:  # 주제 목록 소진 → AI가 새 주제 제안
             titles = "\n".join("- " + p["title"] for p in posts)
-            res, _ = call_gemini(
+            res, _ = call_llm(
                 f"푸드타파(하이브리드 싱크대 음식물처리기) 정보 사이트의 새 글 주제 1개를 제안하세요. 소비자가 실제로 검색할 만한 질문형 주제. "
                 f"타사 브랜드명 금지. 아래 기존 글과 겹치지 않게.\n{titles}\n카테고리는 {list(CATS)} 중 하나.",
                 schema={"type": "OBJECT", "properties": {"title": {"type": "STRING"}, "category": {"type": "STRING", "enum": list(CATS)}}, "required": ["title", "category"]},
@@ -311,7 +379,7 @@ def main():
 
     feedback = ""
     for attempt in range(3):
-        data, model = call_gemini(build_prompt(topic, posts, feedback))
+        data, model = call_llm(build_prompt(topic, posts, feedback))
         errs = validate(data, posts)
         if not errs:
             break
