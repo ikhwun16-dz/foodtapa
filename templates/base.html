@@ -31,7 +31,7 @@
 <link rel="alternate" type="application/rss+xml" title="{{ SITE.site_name }} 정보글" href="{{ rel('rss.xml') }}">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{{ rel('assets/css/site.css') }}">
+<link rel="stylesheet" href="{{ rel('assets/css/site.css') }}?v={{ now.strftime('%y%m%d%H%M') }}">
 {% if jsonld %}<script type="application/ld+json">{{ jsonld|safe }}</script>{% endif %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -90,6 +90,6 @@
   <a href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="dock-buy"><span>🛒</span>구매</a>
   <a class="dock__main" href="{{ link('trial') }}" target="_blank" rel="noopener" data-track="dock-trial">15일 무료체험</a>
 </div>
-<script src="{{ rel('assets/js/site.js') }}" defer></script>
+<script src="{{ rel('assets/js/site.js') }}?v={{ now.strftime('%y%m%d%H%M') }}" defer></script>
 </body>
 </html>
