@@ -118,19 +118,23 @@
   "colors": [
     {
       "name": "모던 화이트",
-      "hex": "#F4F3EF"
+      "hex": "#F4F3EF",
+      "image": "assets/img/color-white.webp"
     },
     {
       "name": "바닐라 옐로우",
-      "hex": "#F2DE9B"
+      "hex": "#F2DE9B",
+      "image": "assets/img/color-yellow.webp"
     },
     {
       "name": "모스 그린",
-      "hex": "#7C8B61"
+      "hex": "#7C8B61",
+      "image": "assets/img/color-green.webp"
     },
     {
       "name": "새틴 그레이",
-      "hex": "#A6A8AA"
+      "hex": "#A6A8AA",
+      "image": "assets/img/color-gray.webp"
     }
   ],
   "filter_colors": [
