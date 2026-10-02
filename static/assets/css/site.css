@@ -412,6 +412,9 @@ thead th{font-size:.85rem;color:var(--ink3);font-weight:700;background:var(--bg2
 @media (min-width:900px){.dock{display:none}}
 
 /* ---------- 실제 제품 이미지 ---------- */
+.swatch-photo{margin:0;border-radius:var(--r-l);overflow:hidden;position:relative;background:var(--bg2);box-shadow:var(--shadow)}
+.swatch-photo img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.swatch-photo figcaption{position:absolute;left:16px;bottom:16px;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;font-weight:800}
 .hero__visual--photo{position:relative;justify-self:center;width:min(340px,78%)}
 .hero__visual--photo img{width:100%;max-height:560px;object-fit:contain;border-radius:36px;background:#fff;box-shadow:0 30px 60px -30px rgba(22,35,28,.45)}
 .float-chip{position:absolute;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);padding:10px 16px;border-radius:999px;font-weight:800;font-size:.9rem;box-shadow:var(--shadow);animation:floaty 5s ease-in-out infinite}
