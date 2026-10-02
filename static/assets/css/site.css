@@ -413,7 +413,7 @@ thead th{font-size:.85rem;color:var(--ink3);font-weight:700;background:var(--bg2
 
 /* ---------- 실제 제품 이미지 ---------- */
 .swatch-photo{margin:0;border-radius:var(--r-l);overflow:hidden;position:relative;background:var(--bg2);box-shadow:var(--shadow)}
-.swatch-photo img{width:100%;aspect-ratio:1;object-fit:cover;object-position:85% 100%}
+.swatch-photo img{width:100%;aspect-ratio:760/427;object-fit:cover;transition:opacity .25s}
 .swatch-photo figcaption{position:absolute;left:16px;bottom:16px;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;font-weight:800}
 .hero__visual--photo{position:relative;justify-self:center;width:min(340px,78%)}
 .hero__visual--photo img{width:100%;max-height:560px;object-fit:contain;border-radius:36px;background:#fff;box-shadow:0 30px 60px -30px rgba(22,35,28,.45)}
