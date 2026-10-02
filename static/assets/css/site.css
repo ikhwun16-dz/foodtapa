@@ -412,8 +412,8 @@ thead th{font-size:.85rem;color:var(--ink3);font-weight:700;background:var(--bg2
 @media (min-width:900px){.dock{display:none}}
 
 /* ---------- 실제 제품 이미지 ---------- */
-.hero__visual--photo{position:relative;justify-self:center;width:min(480px,100%)}
-.hero__visual--photo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:36px;background:#fff;box-shadow:0 30px 60px -30px rgba(22,35,28,.45)}
+.hero__visual--photo{position:relative;justify-self:center;width:min(420px,88%)}
+.hero__visual--photo img{width:100%;max-height:560px;object-fit:contain;border-radius:36px;background:#fff;box-shadow:0 30px 60px -30px rgba(22,35,28,.45)}
 .float-chip{position:absolute;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);padding:10px 16px;border-radius:999px;font-weight:800;font-size:.9rem;box-shadow:var(--shadow);animation:floaty 5s ease-in-out infinite}
 .float-chip::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:8px;vertical-align:1px}
 .float-chip--a{top:8%;left:-6%}.float-chip--b{bottom:16%;right:-6%;animation-delay:-1.6s}.float-chip--c{bottom:-3%;left:10%;animation-delay:-3.2s}
