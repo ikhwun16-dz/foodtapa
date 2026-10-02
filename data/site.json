@@ -1,0 +1,172 @@
+{
+  "site_url": "https://YOUR-GITHUB-ID.github.io/foodtapa",
+  "site_name": "푸드타파 음식물처리기",
+  "site_tagline": "막힘 없는 하이브리드 싱크대 음식물처리기",
+  "default_title": "푸드타파 음식물처리기 | 상향배출 하이브리드 싱크대 음식물처리기 공식 가이드",
+  "default_description": "푸드타파 하이브리드 음식물처리기(분쇄+미생물) 공식 정보 사이트. 국내 유일 상향배출 구조, 환경부 장관 표창, 전국 3년 무상 A/S, 15일 무료체험·렌탈·구매 방법과 음식물처리기 고르는 법, 설치 조건, 관리법 정보를 매일 업데이트합니다.",
+  "keywords": [
+    "푸드타파",
+    "푸드타파 음식물처리기",
+    "하이브리드 음식물처리기",
+    "싱크대 음식물처리기",
+    "미생물 음식물처리기",
+    "음식물처리기 추천",
+    "음식물처리기 무료체험",
+    "음식물처리기 렌탈",
+    "합법 음식물처리기",
+    "음식물분쇄기",
+    "디스포저",
+    "가정용 음식물처리기"
+  ],
+  "locale": "ko_KR",
+  "verification": {
+    "naver": "",
+    "google": "",
+    "bing": ""
+  },
+  "indexnow_key": "b8daa4cdf15b28dcc1ed778a5a74894c",
+  "brand": {
+    "name": "푸드타파",
+    "name_en": "FOODTAPA",
+    "manufacturer": "제이앤에이치컴퍼니",
+    "seller": "유통나라",
+    "phone": "070-7450-0401",
+    "as_phone": "1522-0930",
+    "hours": "평일 10:00~18:00 (점심 12:00~13:00, 주말·공휴일 휴무)",
+    "kakao": "https://pf.kakao.com/_pfFxjxb",
+    "official": "https://www.yootongnara.com/",
+    "youtube_guide": "https://youtu.be/EQpuXyf_lCQ",
+    "address": "서울특별시 강동구 구천면로 295 3층",
+    "biz_no": "662-02-01475"
+  },
+  "links": {
+    "category": "https://www.yootongnara.com/goods/goods_list.php?cateCd=001001",
+    "buy": "https://www.yootongnara.com/goods/goods_view.php?goodsNo=1000000000",
+    "rental": "https://www.yootongnara.com/goods/goods_view.php?goodsNo=1000000014",
+    "trial": "https://www.yootongnara.com/goods/goods_view.php?goodsNo=1000000008",
+    "business": "https://www.yootongnara.com/goods/goods_view.php?goodsNo=1000000004",
+    "installed": "https://www.yootongnara.com/board/list.php?bdId=installed",
+    "event": "https://www.yootongnara.com/board/list.php?bdId=event",
+    "faq": "https://www.yootongnara.com/service/faq.php",
+    "brand": "https://www.yootongnara.com/main/html.php?htmid=service/company.html"
+  },
+  "products": [
+    {
+      "id": "trial",
+      "badge": "가장 많이 선택",
+      "label": "15일 무료체험",
+      "name": "[15일 체험] 푸드타파 하이브리드 + 보조금 신청",
+      "short": "먼저 써보고 결정하세요",
+      "price_text": "체험 신청 100원",
+      "list_price": 1540000,
+      "price": 100,
+      "points": [
+        "15일 동안 집에서 직접 사용",
+        "체험 후 구매 시 보조금 혜택 상담",
+        "기사 방문 설치 포함",
+        "불만족 시 왕복 택배비·철거비만 부담"
+      ],
+      "cta": "무료체험 신청하기",
+      "url_key": "trial",
+      "image": "https://godomall-storage.cdn-nhncommerce.com/6c325e8270f0e638a5bbe2ba2dda2754/goods/1000000008/image/main/1000000008_main_020.png"
+    },
+    {
+      "id": "buy",
+      "badge": "24개월 무이자",
+      "label": "바로 구매",
+      "name": "푸드타파 하이브리드 음식물처리기",
+      "short": "공식몰 단독 최대 24개월 무이자 할부",
+      "price_text": "1,540,000원",
+      "list_price": 1680000,
+      "price": 1540000,
+      "points": [
+        "공식몰 최대 24개월 무이자 할부",
+        "구매 시 3년 무상 A/S (제품 하자)",
+        "기사 방문 설치 · 무료 배송",
+        "컬러 4종 × 거름망 컬러 선택"
+      ],
+      "cta": "공식몰에서 구매하기",
+      "url_key": "buy",
+      "image": "https://godomall-storage.cdn-nhncommerce.com/6c325e8270f0e638a5bbe2ba2dda2754/goods/1000000000/image/main/1000000000_main_051.jpg"
+    },
+    {
+      "id": "rental",
+      "badge": "부담 없는 월 납부",
+      "label": "렌탈",
+      "name": "푸드타파 하이브리드 36개월 렌탈",
+      "short": "초기 비용 없이 시작",
+      "price_text": "월 렌탈료 상담",
+      "list_price": 1540000,
+      "price": 0,
+      "points": [
+        "36개월 약정 렌탈",
+        "무상 A/S 3년 (제품 하자)",
+        "기사 방문 설치 포함",
+        "상담 후 월 요금 안내"
+      ],
+      "cta": "렌탈 상담 신청하기",
+      "url_key": "rental",
+      "image": "https://godomall-storage.cdn-nhncommerce.com/6c325e8270f0e638a5bbe2ba2dda2754/goods/1000000014/image/main/1000000014_main_084.jpg"
+    }
+  ],
+  "business_product": {
+    "name": "푸드타파 하연 업소용 음식물쓰레기처리기",
+    "short": "식당·병원·급식소용 대용량 미생물 발효 분해 감량기",
+    "url_key": "business",
+    "image": "https://godomall-storage.cdn-nhncommerce.com/6c325e8270f0e638a5bbe2ba2dda2754/goods/1000000004/image/main/1000000004_main_019.png"
+  },
+  "colors": [
+    {
+      "name": "모던 화이트",
+      "hex": "#F4F3EF"
+    },
+    {
+      "name": "바닐라 옐로우",
+      "hex": "#F2DE9B"
+    },
+    {
+      "name": "모스 그린",
+      "hex": "#7C8B61"
+    },
+    {
+      "name": "새틴 그레이",
+      "hex": "#A6A8AA"
+    }
+  ],
+  "filter_colors": [
+    "노블 블랙",
+    "썬셋 오렌지",
+    "모스 그린",
+    "새틴 그레이"
+  ],
+  "categories": [
+    {
+      "slug": "choose",
+      "name": "고르는 법"
+    },
+    {
+      "slug": "tech",
+      "name": "구조·원리"
+    },
+    {
+      "slug": "install",
+      "name": "설치·공간"
+    },
+    {
+      "slug": "care",
+      "name": "사용·관리"
+    },
+    {
+      "slug": "legal",
+      "name": "합법·인증"
+    },
+    {
+      "slug": "cost",
+      "name": "비용·혜택"
+    },
+    {
+      "slug": "life",
+      "name": "생활 팁"
+    }
+  ]
+}

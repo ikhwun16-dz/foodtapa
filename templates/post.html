@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block body_class %}is-post{% endblock %}
+{% block main %}
+<div class="progress" data-progress aria-hidden="true"></div>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="post__hd wrap wrap--narrow">
+    {{ m.crumbs([('홈',''),('정보글','guide/'),(post.cat_name,'guide/category/' ~ post.category ~ '/'),(post.title, post.url)], rel) }}
+    <a class="chip" href="{{ rel('guide/category/' ~ post.category ~ '/') }}">{{ post.cat_name }}</a>
+    <h1 class="post__title" itemprop="headline">{{ post.title }}</h1>
+    <p class="post__desc" itemprop="description">{{ post.description }}</p>
+    <div class="post__meta">
+      <span class="author"><i aria-hidden="true">FT</i><span itemprop="author">푸드타파 에디터팀</span></span>
+      <time datetime="{{ post._date.isoformat() }}" itemprop="datePublished">{{ post._date.strftime('%Y년 %m월 %d일') }}</time>
+      {% if post._updated.date() != post._date.date() %}<span>· 수정 <time datetime="{{ post._updated.isoformat() }}" itemprop="dateModified">{{ post._updated.strftime('%Y.%m.%d') }}</time></span>{% endif %}
+      <span>· {{ post.read_min }}분 읽기</span>
+      <button type="button" class="share" data-share>공유</button>
+    </div>
+  </header>
+  <figure class="post__cover wrap wrap--narrow"><img src="{{ rel(post.cover) }}" alt="{{ post.title }}" width="1200" height="630" itemprop="image"></figure>
+
+  <div class="post__layout wrap">
+    <aside class="toc" aria-label="목차">
+      {% if post.toc %}<p class="toc__h">목차</p><ol>{% for t in post.toc %}<li><a href="#{{ t.id }}">{{ t.name }}</a></li>{% endfor %}</ol>{% endif %}
+      <div class="toc__cta"><b>15일 먼저 써보기</b><p>100원 신청 · 기사 방문 설치</p><a class="btn btn--accent btn--block btn--sm" href="{{ link('trial') }}" target="_blank" rel="noopener" data-track="toc-trial">무료체험 신청</a><a class="btn btn--ghost btn--block btn--sm" href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="toc-buy">공식몰 구매</a></div>
+    </aside>
+    <div class="post__body" itemprop="articleBody">
+      {% if post.summary %}
+      <section class="tldr" aria-label="핵심 요약">
+        <b>핵심 요약</b>
+        <ul>{% for s in post.summary %}<li>{{ s }}</li>{% endfor %}</ul>
+      </section>
+      {% endif %}
+      <div class="prose">{{ post.body_html|safe }}</div>
+
+      {% if post.faq %}
+      <section class="post__faq">
+        <h2>자주 묻는 질문</h2>
+        {{ m.faq_list(post.faq) }}
+      </section>
+      {% endif %}
+
+      {{ cta_block(post.cta or 'trial')|safe }}
+
+      {% if post.tags %}<ul class="tags">{% for t in post.tags %}<li>#{{ t }}</li>{% endfor %}</ul>{% endif %}
+
+      <div class="byline">
+        <i aria-hidden="true">FT</i>
+        <div><b>푸드타파 에디터팀</b><p>2020년부터 1만 건이 넘는 카카오톡 상담과 설치·A/S 현장 경험을 바탕으로 정리합니다. 제품 사양과 정책은 공식몰 기준이며, 바뀌면 이 글도 업데이트합니다.</p></div>
+      </div>
+
+      <nav class="pn" aria-label="이전·다음 글">
+        {% if post.older %}<a href="{{ rel(post.older.url) }}"><small>이전 글</small>{{ post.older.title }}</a>{% else %}<span></span>{% endif %}
+        {% if post.newer %}<a class="pn__next" href="{{ rel(post.newer.url) }}"><small>다음 글</small>{{ post.newer.title }}</a>{% endif %}
+      </nav>
+    </div>
+  </div>
+</article>
+
+{% if post.related %}
+<section class="sec wrap">
+  <div class="sec__head"><div><span class="kicker">관련 정보</span><h2 class="h2">함께 읽으면 좋은 글</h2></div>{{ m.carousel_ctrl('rel') }}</div>
+  <div class="rail" data-car="rel">{% for p in post.related %}{{ m.card(p, rel) }}{% endfor %}</div>
+</section>
+{% endif %}
+{% include "_band.html" %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block main %}
+<section class="phero">
+  <div class="wrap wrap--narrow">
+    {{ m.crumbs([('홈',''),('자주 묻는 질문','faq/')], rel) }}
+    <span class="eyebrow">FAQ</span>
+    <h1 class="h1">자주 묻는 질문</h1>
+    <p class="lead">2020년부터 카카오톡으로 받은 1만 건이 넘는 상담 중 가장 많이 나온 질문을 모았어요.</p>
+    <div class="faq-search"><input type="search" placeholder="궁금한 단어를 입력해 보세요 (예: 소음, 전기, 이사)" data-faq-filter aria-label="FAQ 검색"></div>
+  </div>
+</section>
+<section class="sec wrap wrap--narrow">
+  {% set groups = faq|groupby('group') %}
+  {% for g in groups %}
+    <h2 class="faq-group">{{ g.grouper }}</h2>
+    {{ m.faq_list(g.list) }}
+  {% endfor %}
+  <div class="inline-cta"><div><strong>원하는 답이 없나요?</strong><p>카카오톡 채널로 물어보시면 평균 10분 안에 답해 드려요(평일 기준).</p></div><a class="btn btn--accent" href="{{ SITE.brand.kakao }}" target="_blank" rel="noopener">카톡 상담 →</a></div>
+</section>
+{% include "_band.html" %}
+{% endblock %}

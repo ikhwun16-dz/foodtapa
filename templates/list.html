@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block main %}
+<section class="phero">
+  <div class="wrap">
+    {% if current_cat %}{{ m.crumbs([('홈',''),('정보글','guide/'),(heading, base)], rel) }}{% else %}{{ m.crumbs([('홈',''),('정보글','guide/')], rel) }}{% endif %}
+    <span class="eyebrow">매일 새 글 · 총 {{ total }}편</span>
+    <h1 class="h1">{{ heading }}</h1>
+    <p class="lead">{{ description }}</p>
+    <nav class="cats" aria-label="카테고리">
+      <a href="{{ rel('guide/') }}" {% if not current_cat %}aria-current="page"{% endif %}>전체</a>
+      {% for c in SITE.categories %}<a href="{{ rel('guide/category/' ~ c.slug ~ '/') }}" {% if current_cat == c.slug %}aria-current="page"{% endif %}>{{ c.name }}</a>{% endfor %}
+    </nav>
+  </div>
+</section>
+<section class="sec wrap">
+  <div class="grid">{% for p in posts %}{{ m.card(p, rel, not loop.first) }}{% endfor %}</div>
+  {% if pages > 1 %}
+  <nav class="pager" aria-label="페이지">
+    {% for n in range(1, pages + 1) %}<a href="{{ rel(base if n == 1 else base ~ 'page/' ~ n ~ '/') }}" {% if n == page_no %}aria-current="page"{% endif %}>{{ n }}</a>{% endfor %}
+  </nav>
+  {% endif %}
+</section>
+{% include "_band.html" %}
+{% endblock %}
