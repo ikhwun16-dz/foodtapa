@@ -410,3 +410,29 @@ thead th{font-size:.85rem;color:var(--ink3);font-weight:700;background:var(--bg2
 .dock a span{font-size:1.15rem;line-height:1}
 .dock__main{background:var(--orange);color:#1A1208!important;font-size:1rem!important;flex-direction:row!important}
 @media (min-width:900px){.dock{display:none}}
+
+/* ---------- 실제 제품 이미지 ---------- */
+.hero__visual--photo{position:relative;justify-self:center;width:min(480px,100%)}
+.hero__visual--photo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:36px;background:#fff;box-shadow:0 30px 60px -30px rgba(22,35,28,.45)}
+.float-chip{position:absolute;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);padding:10px 16px;border-radius:999px;font-weight:800;font-size:.9rem;box-shadow:var(--shadow);animation:floaty 5s ease-in-out infinite}
+.float-chip::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:8px;vertical-align:1px}
+.float-chip--a{top:8%;left:-6%}.float-chip--b{bottom:16%;right:-6%;animation-delay:-1.6s}.float-chip--c{bottom:-3%;left:10%;animation-delay:-3.2s}
+@media (max-width:600px){.float-chip{font-size:.78rem;padding:8px 12px}.float-chip--a{left:2%}.float-chip--b{right:2%}}
+@keyframes floaty{50%{transform:translateY(-8px)}}
+.hero__visual--doc img{width:min(400px,86%);border-radius:24px;box-shadow:var(--shadow);transform:rotate(-2deg)}
+.split__vis--img{padding:0;overflow:hidden;margin:0;background:#fff}
+.split__vis--img img{width:100%}
+.frail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:none}
+.frail::-webkit-scrollbar{display:none}
+.fcard{flex:0 0 min(78%,300px);scroll-snap-align:start;margin:0;border-radius:24px;overflow:hidden;background:#0c1712;border:1px solid rgba(255,255,255,.1)}
+.fcard img{width:100%;aspect-ratio:860/1300;object-fit:cover;object-position:top}
+.fcard figcaption{padding:14px 16px;font-weight:800;color:#fff;display:flex;gap:10px;align-items:center}
+.fcard figcaption span{color:var(--orange);font-size:.85rem}
+.link-more--light{color:#fff}
+.dstack{max-width:860px;margin:28px auto;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);background:#fff}
+.dstack img{width:100%;display:block}
+.awards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (min-width:900px){.awards{grid-template-columns:repeat(4,1fr)}}
+.awards figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.awards img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.awards figcaption{padding:12px 14px;font-weight:700}
