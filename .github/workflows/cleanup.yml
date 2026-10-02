@@ -1,0 +1,19 @@
+name: 일회성 정리 (맨 바깥 중복 파일 삭제)
+on:
+  push:
+    paths: [".github/workflows/cleanup.yml"]
+permissions:
+  contents: write
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for f in "2026-09-21-sanghyang.md" "2026-09-22-types.md" "2026-09-23-nogo.md" "2026-09-24-install-check.md" "2026-09-25-legal.md" "2026-09-26-cost.md" "2026-09-27-household.md" "2026-09-28-cleaning.md" "2026-09-29-rental-vs-buy.md" "2026-09-30-smell.md" "2026-10-01-salty.md" "2026-10-02-move.md" "206e36fcd0.png" "21bcff0add.png" "24704d77fc.png" "404.html" "4d97d2afd4.png" "57b02749e0.png" "65e8c28ea7.png" "6f45c5d025.png" "7d978424c2.png" "_band.html" "_macros.html" "a6aa3a63fa.png" "about.html" "adff0feef7.png" "b29e2c32d3.png" "base.html" "brand_facts.md" "buy.html" "download" "e363ceb510.png" "faq.html" "faq.json" "favicon.svg" "generate_post.py" "home.html" "indexnow.py" "list.html" "logo.png" "og-default.png" "post.html" "product.html" "product.svg" "question_bank.json" "site.css" "site.js" "site.json" "topics.json"; do
+            [ -f "$f" ] && git rm -q "$f"
+          done
+          git rm -q .github/workflows/cleanup.yml
+          git config user.name "foodtapa-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git commit -m "맨 바깥 중복 파일 정리" && git push
