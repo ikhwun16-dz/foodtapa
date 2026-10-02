@@ -15,7 +15,12 @@
             <a class="btn btn--ghost btn--lg" href="{{ rel('product/') }}">작동 원리 보기</a>
           </div>
         </div>
-        <div class="hero__visual">{{ m.flow_svg() }}</div>
+        <div class="hero__visual hero__visual--photo">
+          <img src="{{ SITE.media.hero_product }}" alt="푸드타파 하이브리드 음식물처리기 본체와 분쇄기" width="1000" height="1000" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='{{ rel('assets/img/product.svg') }}'">
+          <span class="float-chip float-chip--a">국내 유일 상향배출</span>
+          <span class="float-chip float-chip--b">월 전기료 1,000원대</span>
+          <span class="float-chip float-chip--c">3년 무상 A/S</span>
+        </div>
       </div>
     </div>
     <div class="hero__slide hero__slide--b" role="group" aria-roledescription="slide" aria-label="2 / 3">
@@ -43,13 +48,8 @@
             <a class="btn btn--ghost btn--lg" href="{{ link('rental') }}" target="_blank" rel="noopener" data-track="hero3-rental">렌탈 상담</a>
           </div>
         </div>
-        <div class="hero__visual">
-          <div class="badges">
-            <div class="badge-big"><b>3년</b><span>전국 무상 A/S</span></div>
-            <div class="badge-big badge-big--o"><b>0건</b><span>상향배출 구조<br>하수구 막힘 목표</span></div>
-            <div class="badge-big badge-big--y"><b>2020</b><span>환경부 장관 표창</span></div>
-          </div>
-        </div>
+        <div class="hero__visual hero__visual--doc"><img src="{{ SITE.media.award }}" alt="푸드타파 환경부 장관 표창장 수상" loading="lazy" referrerpolicy="no-referrer"></div>
+      </div>
       </div>
     </div>
   </div>
@@ -89,7 +89,21 @@
       </ol>
       <a class="btn btn--dark" href="{{ rel('product/') }}">제품 자세히 보기 →</a>
     </div>
-    <div class="split__vis">{{ m.flow_svg() }}</div>
+    <figure class="split__vis split__vis--img"><img src="{{ SITE.media.upflow }}" alt="국내 유일 상향배출 시스템과 하향배출 비교" loading="lazy" referrerpolicy="no-referrer"></figure>
+  </div>
+</section>
+
+
+<section class="sec sec--dark" aria-labelledby="feat">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><span class="kicker kicker--light">핵심 기능 한눈에</span><h2 id="feat" class="h2">푸드타파가 다른 이유</h2></div>
+      {{ m.carousel_ctrl('feat') }}
+    </div>
+    <div class="frail" data-car="feat">
+      {% for f in SITE.media.features %}<figure class="fcard"><img src="{{ f.src }}" alt="{{ f.alt }}" loading="lazy" referrerpolicy="no-referrer"><figcaption><span>{{ '%02d'|format(loop.index) }}</span>{{ f.cap }}</figcaption></figure>{% endfor %}
+    </div>
+    <a class="link-more link-more--light" href="{{ rel('product/') }}#detail">상세 정보 전체 보기 →</a>
   </div>
 </section>
 
