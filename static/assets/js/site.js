@@ -55,7 +55,7 @@
   const stage = $('[data-swatch-stage]');
   $$('[data-swatch]').forEach(b => b.addEventListener('click', () => {
     $$('[data-swatch]').forEach(x => x.setAttribute('aria-checked', x === b));
-    stage.style.setProperty('--sw', b.dataset.swatch);
+    const im = $('[data-swatch-img]'); if (im && b.dataset.img) im.src = b.dataset.img;
     $('[data-swatch-name]').textContent = b.dataset.name;
   }));
 
