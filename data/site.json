@@ -168,5 +168,215 @@
       "slug": "life",
       "name": "생활 팁"
     }
-  ]
+  ],
+  "media": {
+    "hero_product": "https://godomall-storage.cdn-nhncommerce.com/6c325e8270f0e638a5bbe2ba2dda2754/goods/1000000000/image/magnify/1000000000_magnify_071.jpg",
+    "upflow": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/c74d97b01eae257e44aa9d5bade97baf_000619.gif",
+    "award": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/c6f057b86584942e415435ffb1fa93d4_235448.png",
+    "service_award": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260421/aa57621271a6143a213eda9ae8004dd3_230934.jpg",
+    "certs": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/4e732ced3463d06de0ca9a15b6153677_001240.png",
+    "history": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/c0a3056327cfa3486f48201b4f88a5fa_184355.gif",
+    "spec": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/c16a5320fa475530d9583c34fd356ef5_001345.png",
+    "no_clog": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/0299c06aed970473ae41d986b308cd09_235822.gif",
+    "korean_microbe": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/19a1de167122a18af369c749f4e40a48_235656.gif",
+    "features": [
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/c74d97b01eae257e44aa9d5bade97baf_000619.gif",
+        "alt": "국내 유일 상향배출 시스템 vs 하향배출",
+        "cap": "상향배출"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/8d501acf45a17771119f1ce8f3f9ecaf_184708.gif",
+        "alt": "3단계 분해",
+        "cap": "3단계 분해"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/70efdf2ec9b086079795c442636b55fb_184739.gif",
+        "alt": "냄새 없는 음식물처리기",
+        "cap": "냄새 차단"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/6f4922f45568161a8cdf4ad2299f6d23_000750.gif",
+        "alt": "자동 물분사로 편리한 사용",
+        "cap": "자동 물분사"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/24bd34f78e62ee2fe89a3a4830966e42_184808.png",
+        "alt": "미생물 온도 자동 조절",
+        "cap": "온도 자동 조절"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/b6d767d2f8ed5d21a44b0e5886680cb9_001044.gif",
+        "alt": "미생물 활동성 차이",
+        "cap": "미생물 활동성"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/8e296a067a37563370ded05f5a3bf3ec_184927.gif",
+        "alt": "2WAY 바이패스 구조",
+        "cap": "2WAY 바이패스"
+      },
+      {
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/02e74f10e0327ad868d138f2b4fdd6f0_001316.gif",
+        "alt": "월 전기료 1,000원대",
+        "cap": "월 전기료 1,000원대"
+      }
+    ],
+    "detail": [
+      {
+        "i": 4,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/c6f057b86584942e415435ffb1fa93d4_235448.png",
+        "alt": "푸드타파 환경부 장관 표창장 수상"
+      },
+      {
+        "i": 7,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260421/aa57621271a6143a213eda9ae8004dd3_230934.jpg",
+        "alt": "한국서비스만족대상 2년 연속 1위"
+      },
+      {
+        "i": 8,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/74bdefab9757a081606b181ac29f1db2_235607.gif",
+        "alt": "음식물쓰레기 아직도 밖에 버리러 나가세요"
+      },
+      {
+        "i": 10,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/19a1de167122a18af369c749f4e40a48_235656.gif",
+        "alt": "한국 음식에 최적화된 특허 균주"
+      },
+      {
+        "i": 11,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/dca19ffa163054feef33432fad5f9833_235757.gif",
+        "alt": "일반 미생물과 푸드타파 미생물 비교"
+      },
+      {
+        "i": 12,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260212/0299c06aed970473ae41d986b308cd09_235822.gif",
+        "alt": "막힘 발생 0건 상향배출 음식물처리기"
+      },
+      {
+        "i": 14,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/a5cb00d7c8fffe5fb2c79c540a54817a_184318.gif",
+        "alt": "소모품비 ZERO 5년 유지비 비교"
+      },
+      {
+        "i": 17,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/c0a3056327cfa3486f48201b4f88a5fa_184355.gif",
+        "alt": "음식물처리기 1세대부터 5세대 하이브리드까지"
+      },
+      {
+        "i": 19,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/9634715ca7e046cdd0fc857cdc38dcb6_000022.gif",
+        "alt": "하수구 막힘의 원인"
+      },
+      {
+        "i": 20,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/1981e4a762b39858dc33f9ea28ed065a_000041.png",
+        "alt": "하수구 막힘 시 드는 비용"
+      },
+      {
+        "i": 22,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/d3d9446802a44259755d38e6d163e820_000208.gif",
+        "alt": "3중 강력 분쇄"
+      },
+      {
+        "i": 23,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/4c52f5a2b25535b01cfeba2fbbc5731b_000457.gif",
+        "alt": "분쇄 과정"
+      },
+      {
+        "i": 24,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/1fea043e0df639cf5a2389628948d27d_000543.gif",
+        "alt": "분쇄 후 상태"
+      },
+      {
+        "i": 25,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/618a81b7250e792c4b2970e8d19045f6_000618.gif",
+        "alt": "분해 후 맑은 배출수"
+      },
+      {
+        "i": 26,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/c74d97b01eae257e44aa9d5bade97baf_000619.gif",
+        "alt": "국내 유일 상향배출 시스템 vs 하향배출"
+      },
+      {
+        "i": 27,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/8d501acf45a17771119f1ce8f3f9ecaf_184708.gif",
+        "alt": "3단계 분해"
+      },
+      {
+        "i": 28,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/70efdf2ec9b086079795c442636b55fb_184739.gif",
+        "alt": "냄새 없는 음식물처리기"
+      },
+      {
+        "i": 29,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/6f4922f45568161a8cdf4ad2299f6d23_000750.gif",
+        "alt": "자동 물분사로 편리한 사용"
+      },
+      {
+        "i": 30,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/1f0e3dad99908345f7439f8ffabdffc4_000817.gif",
+        "alt": "넉넉한 처리 용량"
+      },
+      {
+        "i": 32,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/24bd34f78e62ee2fe89a3a4830966e42_184808.png",
+        "alt": "미생물 온도 자동 조절"
+      },
+      {
+        "i": 33,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/9f80bbb77b4306aadb7e6703166a79c4_000954.gif",
+        "alt": "온도 조절 작동"
+      },
+      {
+        "i": 34,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/b6d767d2f8ed5d21a44b0e5886680cb9_001044.gif",
+        "alt": "미생물 활동성 차이"
+      },
+      {
+        "i": 35,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/37693cfc748049e45d87b8c7d8b9aacd_001110.png",
+        "alt": "푸드타파 전용 미생물"
+      },
+      {
+        "i": 36,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/1ff1de774005f8da13f42943881c655f_001201.gif",
+        "alt": "미생물 분해 비교"
+      },
+      {
+        "i": 37,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260304/8e296a067a37563370ded05f5a3bf3ec_184927.gif",
+        "alt": "2WAY 바이패스 구조"
+      },
+      {
+        "i": 38,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/4e732ced3463d06de0ca9a15b6153677_001240.png",
+        "alt": "환경부 장관상과 각종 인증서"
+      },
+      {
+        "i": 39,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/02e74f10e0327ad868d138f2b4fdd6f0_001316.gif",
+        "alt": "월 전기료 1,000원대"
+      },
+      {
+        "i": 40,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/33e75ff09dd601bbe69f351039152189_001316.png",
+        "alt": "인증 정보"
+      },
+      {
+        "i": 43,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/c16a5320fa475530d9583c34fd356ef5_001345.png",
+        "alt": "푸드타파 하이브리드 제원 정보"
+      },
+      {
+        "i": 44,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260225/3d5cbf791f2d09342f4efec1ca1664d9_211302.gif",
+        "alt": "설치 및 A/S 안내"
+      },
+      {
+        "i": 45,
+        "src": "https://cdn-saas-web-203-48.cdn-nhncommerce.com/hwangsj57_godomall_com/data/editor/goods/260213/0c56fd30bf7c6a0301f1867a90ca9941_001432.png",
+        "alt": "설치 조건 안내"
+      }
+    ]
+  }
 }
