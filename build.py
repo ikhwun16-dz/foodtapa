@@ -115,10 +115,36 @@ FONT_CANDIDATES = [
     "/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc",
     "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
 ]
-PALETTES = [
-    ("#1F3A2E", "#F7F3E8", "#FF7A45"), ("#F2DE9B", "#1F3A2E", "#1F3A2E"), ("#7C8B61", "#FFFFFF", "#F2DE9B"),
-    ("#2B2F33", "#F4F3EF", "#FF7A45"), ("#FF7A45", "#1D1D1B", "#FFFFFF"), ("#E9EEE3", "#1F3A2E", "#FF7A45"),
+PALETTES = [  # (배경, 글자, 포인트) — 프리미엄: 블랙 / 아이보리 / 브라스
+    ("#111111", "#F1EEE8", "#B39566"), ("#EDEAE4", "#111111", "#8C6E43"), ("#1C1B19", "#F1EEE8", "#B39566"),
 ]
+COVER_VERSION = "p2"  # 표지 디자인을 바꾸면 이 값을 바꿔서 새로 만들게 함
+
+
+def _logo_polys(key, x0, y0, height):
+    """data/logo_paths.json 의 로고 윤곽을 (x0,y0) 위치, 주어진 높이로 변환한 다각형 목록."""
+    data = json.loads((ROOT / "data/logo_paths.json").read_text(encoding="utf-8"))
+    bx, by, bw, bh = map(float, data[key + "_box"])
+    k = height / bh
+    polys = []
+    for seg in re.findall(r"M([^Z]+)Z", data[key]):
+        pts = [tuple(map(float, xy.split(","))) for xy in seg.split("L")]
+        polys.append([(x0 + (x - bx) * k, y0 + (y - by) * k) for x, y in pts])
+    return polys, bw * k
+
+
+def _draw_logo(im, key, x0, y0, height, color, alpha=255):
+    from PIL import Image, ImageDraw, ImageChops
+    polys, w = _logo_polys(key, x0, y0, height)
+    mask = Image.new("L", im.size, 0)
+    for poly in polys:  # even-odd 채우기 (구멍 유지)
+        layer = Image.new("L", im.size, 0)
+        ImageDraw.Draw(layer).polygon(poly, fill=255)
+        mask = ImageChops.logical_xor(mask.convert("1"), layer.convert("1")).convert("L")
+    if alpha < 255:
+        mask = mask.point(lambda v: v * alpha // 255)
+    im.paste(Image.new("RGB", im.size, color), (0, 0), mask)
+    return w
 
 
 def make_cover(text: str, sub: str, out: Path, seed: str):
@@ -133,39 +159,40 @@ def make_cover(text: str, sub: str, out: Path, seed: str):
         return
     bg, fg, ac = PALETTES[int(hashlib.md5(seed.encode()).hexdigest(), 16) % len(PALETTES)]
     W, H = 1200, 630
-    im = Image.new("RGB", (W, H), bg)
+    S = 2  # 2배로 그린 뒤 줄여서 가장자리를 매끄럽게
+    im = Image.new("RGB", (W * S, H * S), bg)
+    # 큰 로고 심볼 (오른쪽, 은은하게)
+    _draw_logo(im, "symbol", 760 * S, 120 * S, 470 * S, fg, alpha=22)
+    # 왼쪽 위 로고
+    sw = _draw_logo(im, "symbol", 72 * S, 64 * S, 40 * S, fg)
+    _draw_logo(im, "word", 72 * S + sw + 16 * S, 78 * S, 12 * S, fg)
     d = ImageDraw.Draw(im)
-    # 장식: 위로 올라가는 막대 = 상향배출 모티프
-    for i in range(5):
-        x = 900 + i * 54
-        top = 470 - i * 70
-        d.rounded_rectangle([x, top, x + 28, 560], radius=14, fill=ac if i % 2 == 0 else fg)
-    d.polygon([(1116, 150), (1150, 110), (1184, 150)], fill=ac)
-    d.ellipse([860, -140, 1320, 280], outline=ac, width=6)
-    f_big = ImageFont.truetype(font_path, 62)
-    f_sub = ImageFont.truetype(font_path, 30)
-    f_tag = ImageFont.truetype(font_path, 26)
-    tw = d.textlength(sub, font=f_tag)
-    d.rounded_rectangle([72, 70, 72 + tw + 44, 122], radius=26, fill=ac)
-    d.text((94, 78), sub, font=f_tag, fill=bg)
+    f_big = ImageFont.truetype(font_path, 60 * S)
+    f_sub = ImageFont.truetype(font_path, 24 * S)
+    f_tag = ImageFont.truetype(font_path, 22 * S)
+    # 카테고리: 가는 선 + 포인트 컬러 글자
+    d.line([(72 * S, 205 * S), (112 * S, 205 * S)], fill=ac, width=2 * S)
+    d.text((126 * S, 190 * S), sub, font=f_tag, fill=ac)
     # 제목 줄바꿈 (단어 단위)
     lines, cur = [], ""
     for word in text.split(" "):
         trial = (cur + " " + word).strip()
-        if d.textlength(trial, font=f_big) > 780 and cur:
+        if d.textlength(trial, font=f_big) > 820 * S and cur:
             lines.append(cur)
             cur = word
         else:
             cur = trial
     lines.append(cur)
-    if len(lines) > 4:
-        lines = lines[:4]
+    if len(lines) > 3:
+        lines = lines[:3]
         lines[-1] = lines[-1].rstrip() + "…"
-    y = 165 + (4 - len(lines)) * 22
+    y = 248 * S
     for ln in lines:
-        d.text((72, y), ln, font=f_big, fill=fg)
-        y += 82
-    d.text((72, H - 82), "FOODTAPA · 푸드타파 하이브리드 음식물처리기", font=f_sub, fill=fg)
+        d.text((72 * S, y), ln, font=f_big, fill=fg)
+        y += 84 * S
+    d.line([(72 * S, (H - 92) * S), ((W - 72) * S, (H - 92) * S)], fill=ac, width=1 * S)
+    d.text((72 * S, (H - 70) * S), "푸드타파 하이브리드 음식물처리기", font=f_sub, fill=fg)
+    im = im.resize((W, H), Image.LANCZOS)
     out.parent.mkdir(parents=True, exist_ok=True)
     im.save(out, "PNG", optimize=True)
 
@@ -191,7 +218,7 @@ def load_posts():
         p["body_html"], p["toc"] = render_md(p["body"])
         text = strip_tags(p["body_html"])
         p["read_min"] = max(2, math.ceil(len(text) / 700))
-        p["cover"] = f"assets/covers/{hashlib.md5(p['slug'].encode()).hexdigest()[:10]}.png"
+        p["cover"] = f"assets/covers/{hashlib.md5(p['slug'].encode()).hexdigest()[:10]}-{COVER_VERSION}.png"
         posts.append(p)
     posts.sort(key=lambda x: x["_date"], reverse=True)
     for i, p in enumerate(posts):
@@ -256,7 +283,28 @@ def ld_graph(*nodes):
 
 # ---------------------------------------------------------------- render
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-env.globals.update(SITE=SITE, link=link, won=won, CATS=CATS, now=datetime.now(KST), cta_block=cta_block)
+LOGO = json.loads((ROOT / "data/logo_paths.json").read_text(encoding="utf-8"))
+env.globals.update(SITE=SITE, link=link, won=won, CATS=CATS, now=datetime.now(KST), cta_block=cta_block, LOGO=LOGO)
+
+
+def write_logo_files():
+    """로고 SVG(전체·파비콘)와 이미지 대체용 SVG를 logo_paths.json 에서 만든다."""
+    sym, word = LOGO["symbol"], LOGO["word"]
+    x, y, w, h = map(float, LOGO["symbol_box"])
+    img = DIST / "assets/img"
+    img.mkdir(parents=True, exist_ok=True)
+    (img / "logo.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 149 121"><g fill="#111" fill-rule="evenodd">'
+        f'<path transform="translate(-4 -4)" d="{sym}"/><path transform="translate(-4 102)" d="{word}"/></g></svg>', encoding="utf-8")
+    s_ = max(w, h) * 1.36
+    cx, cy = x + w / 2, y + h / 2
+    (img / "favicon.svg").write_text(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{cx - s_ / 2:.1f} {cy - s_ / 2:.1f} {s_:.1f} {s_:.1f}">'
+        f'<rect x="{cx - s_ / 2:.1f}" y="{cy - s_ / 2:.1f}" width="{s_:.1f}" height="{s_:.1f}" rx="{s_ * 0.22:.1f}" fill="#111"/>'
+        f'<path fill="#fff" fill-rule="evenodd" d="{sym}"/></svg>', encoding="utf-8")
+    (img / "product.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#EDEAE4"/>'
+        f'<g transform="translate(200 200) scale(1.3) translate({-cx:.1f} {-cy:.1f})"><path fill="#111" fill-opacity=".14" fill-rule="evenodd" d="{sym}"/></g></svg>', encoding="utf-8")
 
 
 def write(path: str, html_text: str):
@@ -279,15 +327,30 @@ def build():
     if DIST.exists():
         shutil.rmtree(DIST)
     shutil.copytree(ROOT / "static", DIST)
+    write_logo_files()
     cover_cache = ROOT / "static/assets/covers"
     posts = load_posts()
     for p in posts:
         make_cover(p["title"], p["cat_name"], cover_cache / Path(p["cover"]).name, p["slug"])
         if (cover_cache / Path(p["cover"]).name).exists():
             shutil.copy(cover_cache / Path(p["cover"]).name, DIST / p["cover"])
-    make_cover("막힘 없는 하이브리드 음식물처리기", "푸드타파", ROOT / "static/assets/img/og-default.png", "default")
-    if (ROOT / "static/assets/img/og-default.png").exists():
-        shutil.copy(ROOT / "static/assets/img/og-default.png", DIST / "assets/img/og-default.png")
+    logo_png = ROOT / "static/assets/img/logo.png"
+    if True:  # 매번 다시 만듦 (결과가 같으면 커밋 변화 없음)
+        try:  # 검색엔진용 로고 PNG (정사각형, 흰 배경)
+            from PIL import Image
+            S = 4
+            im = Image.new("RGB", (512 * S, 512 * S), "#FFFFFF")
+            sw = _logo_polys("symbol", 0, 0, 290 * S)[1]
+            _draw_logo(im, "symbol", (512 * S - sw) / 2, 96 * S, 290 * S, "#111111")
+            ww = _logo_polys("word", 0, 0, 34 * S)[1]
+            _draw_logo(im, "word", (512 * S - ww) / 2, 400 * S, 34 * S, "#111111")
+            im.resize((512, 512), Image.LANCZOS).save(logo_png, "PNG", optimize=True)
+            shutil.copy(logo_png, DIST / "assets/img/logo.png")
+        except Exception as e:
+            print("로고 PNG 생성 건너뜀:", e)
+    make_cover("막힘 없는 하이브리드 음식물처리기", "FOODTAPA", ROOT / f"static/assets/img/og-{COVER_VERSION}.png", "default")
+    if (ROOT / f"static/assets/img/og-{COVER_VERSION}.png").exists():
+        shutil.copy(ROOT / f"static/assets/img/og-{COVER_VERSION}.png", DIST / "assets/img/og-default.png")
 
     org = ld_org()
     website = {"@type": "WebSite", "@id": abs_url("") + "#website", "url": abs_url(""), "name": SITE["site_name"], "inLanguage": "ko-KR", "publisher": {"@id": abs_url("") + "#org"}}
