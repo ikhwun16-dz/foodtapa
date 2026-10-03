@@ -1,4 +1,4 @@
-<!doctype html>
+{% import "_logo.html" as lg %}<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -8,7 +8,7 @@
 <meta name="keywords" content="{{ (post.tags if post else SITE.keywords)|join(', ') }}">
 <meta name="robots" content="{{ 'noindex,follow' if noindex else 'index,follow,max-image-preview:large,max-snippet:-1' }}">
 <link rel="canonical" href="{{ canonical }}">
-<meta name="theme-color" content="#1F3A2E">
+<meta name="theme-color" content="#F6F4F0">
 {% if SITE.verification.naver %}<meta name="naver-site-verification" content="{{ SITE.verification.naver }}">{% endif %}
 {% if SITE.verification.google %}<meta name="google-site-verification" content="{{ SITE.verification.google }}">{% endif %}
 {% if SITE.verification.bing %}<meta name="msvalidate.01" content="{{ SITE.verification.bing }}">{% endif %}
@@ -38,10 +38,7 @@
 <a class="skip" href="#main">본문 바로가기</a>
 <header class="hdr" data-hdr>
   <div class="hdr__in wrap">
-    <a class="logo" href="{{ rel('') }}" aria-label="푸드타파 홈">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="currentColor"/><path d="M20 9l7 8h-4.5v6h-5v-6H13z" fill="#FF7A45"/><path d="M12 27c2.5 2.6 5.2 3.9 8 3.9s5.5-1.3 8-3.9" stroke="#F7F3E8" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-      <span><b>푸드타파</b><small>FOODTAPA HYBRID</small></span>
-    </a>
+    <a class="logo" href="{{ rel('') }}" aria-label="푸드타파 FOODTAPA 홈">{{ lg.symbol('logo__sym') }}{{ lg.word('logo__word') }}</a>
     <nav class="nav" data-nav aria-label="주요 메뉴">
       <a href="{{ rel('product/') }}" {% if path.startswith('product') %}aria-current="page"{% endif %}>제품</a>
       <a href="{{ rel('buy/') }}" {% if path.startswith('buy') %}aria-current="page"{% endif %}>구매·렌탈·체험</a>
@@ -63,7 +60,7 @@
   <div class="wrap">
     <div class="ftr__top">
       <div>
-        <p class="ftr__brand">푸드타파 <span>FOODTAPA</span></p>
+        <p class="ftr__brand" aria-label="푸드타파 FOODTAPA">{{ lg.full() }}</p>
         <p class="ftr__desc">분쇄 + 미생물 + 상향배출. 막힘 걱정 없는 하이브리드 싱크대 음식물처리기.</p>
         <div class="ftr__btns">
           <a class="btn btn--light btn--sm" href="{{ link('buy') }}" target="_blank" rel="noopener">공식몰 구매</a>
@@ -85,9 +82,9 @@
   </div>
 </footer>
 <div class="dock" role="navigation" aria-label="빠른 신청">
-  <a href="{{ SITE.brand.kakao }}" target="_blank" rel="noopener" data-track="dock-kakao"><span>💬</span>상담</a>
-  <a href="{{ link('rental') }}" target="_blank" rel="noopener" data-track="dock-rental"><span>📅</span>렌탈</a>
-  <a href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="dock-buy"><span>🛒</span>구매</a>
+  <a href="{{ SITE.brand.kakao }}" target="_blank" rel="noopener" data-track="dock-kakao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 6l-.9 3.3 3.8-2.4c.6.1 1.2.1 1.9.1 5 0 9-3.1 9-7s-4-7-9-7z" stroke-linejoin="round"/></svg>상담</a>
+  <a href="{{ link('rental') }}" target="_blank" rel="noopener" data-track="dock-rental"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>렌탈</a>
+  <a href="{{ link('buy') }}" target="_blank" rel="noopener" data-track="dock-buy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9L5 8z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>구매</a>
   <a class="dock__main" href="{{ link('trial') }}" target="_blank" rel="noopener" data-track="dock-trial">15일 무료체험</a>
 </div>
 <script src="{{ rel('assets/js/site.js') }}?v={{ now.strftime('%y%m%d%H%M') }}" defer></script>

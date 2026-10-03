@@ -1,0 +1,3 @@
+{% macro symbol(cls='') %}<svg class="{{ cls }}" viewBox="{{ LOGO.symbol_box|join(' ') }}" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="{{ LOGO.symbol }}"/></svg>{% endmacro %}
+{% macro word(cls='') %}<svg class="{{ cls }}" viewBox="{{ LOGO.word_box|join(' ') }}" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="{{ LOGO.word }}"/></svg>{% endmacro %}
+{% macro full(cls='') %}<svg class="{{ cls }}" viewBox="-0.5 -0.5 149 121" aria-hidden="true" focusable="false"><g fill="currentColor" fill-rule="evenodd"><path transform="translate(-4 -4)" d="{{ LOGO.symbol }}"/><path transform="translate(-4 102)" d="{{ LOGO.word }}"/></g></svg>{% endmacro %}
