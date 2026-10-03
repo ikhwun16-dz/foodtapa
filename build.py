@@ -299,8 +299,8 @@ def build():
          jsonld=ld_graph(org, website, ld_product(), ld_faq(home_faq), ld_itemlist(posts[:10], "푸드타파 최신 정보글")))
 
     # 제품 / 구매 / FAQ / 소개
-    page("product.html", "product/", title="푸드타파 하이브리드 음식물처리기 제품 정보 | 상향배출·미생물·3년 A/S",
-         description="푸드타파 하이브리드 음식물처리기의 작동 원리(분쇄+미생물+상향배출), 컬러, 설치 조건, 관리법, 보증 정책을 한 페이지에 정리했습니다.",
+    page("product.html", "product/", title="푸드타파 음식물처리기·음식물분쇄기 제품 정보 | 분쇄+미생물 하이브리드·상향배출·3년 A/S",
+         description="푸드타파 하이브리드 음식물처리기·음식물분쇄기의 작동 원리(분쇄+미생물+상향배출), 컬러, 설치 조건, 관리법, 보증 정책을 한 페이지에 정리했습니다.",
          posts=posts[:6], og_image=SITE["products"][1]["image"],
          jsonld=ld_graph(org, ld_product(), ld_breadcrumb([("홈", ""), ("제품 정보", "product/")])))
     page("buy.html", "buy/", title="푸드타파 구매·렌탈·15일 무료체험 비교 | 나에게 맞는 방법 고르기",
