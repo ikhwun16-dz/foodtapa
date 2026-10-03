@@ -111,7 +111,9 @@
   // 외부 링크 클릭 추적 (GA4 / 네이버 애널리틱스 연결 시 자동 사용)
   $$('[data-track]').forEach(a => a.addEventListener('click', () => {
     const ev = a.dataset.track;
-    if (window.gtag) gtag('event', 'cta_click', { label: ev });
+    const h = a.href || '';
+    const kind = /pf\.kakao/.test(h) ? '카톡 상담' : /1000000008/.test(h) ? '무료체험' : /1000000014/.test(h) ? '렌탈' : /1000000004/.test(h) ? '업소용' : /1000000000/.test(h) ? '구매' : '기타';
+    if (window.gtag) gtag('event', 'cta_click', { label: kind, position: ev });
     if (window.wcs && window.wcs.event) try { wcs.event('cta', ev); } catch (e) {}
   }));
 })();
