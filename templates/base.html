@@ -32,6 +32,8 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="{{ rel('assets/css/site.css') }}?v={{ now.strftime('%y%m%d%H%M') }}">
+{% if SITE.ga4 %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ SITE.ga4 }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ SITE.ga4 }}');</script>{% endif %}
 {% if jsonld %}<script type="application/ld+json">{{ jsonld|safe }}</script>{% endif %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
