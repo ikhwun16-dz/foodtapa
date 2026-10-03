@@ -100,6 +100,14 @@
     } catch (e) { /* 사용자가 취소 */ }
   }));
 
+
+  // 스크롤 등장 효과
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const els = $$('.sec .sec__head, .sec .define, .sec .bento, .sec .split > *, .sec .plans, .sec .table-wrap, .sec .rail, .sec .frail, .sec .faq, .band__in');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('rv'); io.observe(el); } });
+  }
+
   // 외부 링크 클릭 추적 (GA4 / 네이버 애널리틱스 연결 시 자동 사용)
   $$('[data-track]').forEach(a => a.addEventListener('click', () => {
     const ev = a.dataset.track;
